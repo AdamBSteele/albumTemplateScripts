@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+    <channel>
+        <title>My_Album_Title</title>
+   	<link>.</link>
+        <generator>jAlbum 11</generator>
+   		<description>This is the album description</description>
+        <jalbum:absolutePath></jalbum:absolutePath>
+    	<jalbum:link rel="sub" href="People/album.rss" />   	
+    	<jalbum:link rel="sub" href="Nature/album.rss" />   	
+    	<jalbum:link rel="sub" href="Objects/album.rss" />   	
+    	<jalbum:link rel="sub" href="Travel/album.rss" />   	
+        
+    </channel>
+</rss>

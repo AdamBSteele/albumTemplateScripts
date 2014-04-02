@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+    <channel>
+        <title>Nature</title>
+   	<link>..</link>
+        <generator>jAlbum 11</generator>
+   		<description></description>
+        <jalbum:absolutePath></jalbum:absolutePath>
+        <item>
+            <title>Poppy</title>
+            <link>slides/Poppy.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Poppy.jpg" width="124" height="86"/>
+            <media:content type="image/jpeg" url="slides/Poppy.jpg" width="800" height="556"/>
+            <jalbum:exif originalDate="5/17/04 10:59 AM" cameraMake="Konica Corporation" cameraModel="Konica Digital Camera KD-500Z"/>
+            <guid isPermaLink="false">slides/Poppy.jpg</guid>
+        </item>
+        <item>
+            <title>Tulips</title>
+            <link>slides/Tulips.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Tulips.jpg" width="124" height="83"/>
+            <media:content type="image/jpeg" url="slides/Tulips.jpg" width="800" height="533"/>
+            <jalbum:exif originalDate="2/15/09 3:58 PM" cameraMake="Canon" cameraModel="Canon EOS 1000D"/>
+            <guid isPermaLink="false">slides/Tulips.jpg</guid>
+        </item>
+        <item>
+            <title>Butterfly</title>
+            <link>slides/Butterfly.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Butterfly.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Butterfly.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="10/2/11 12:05 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Butterfly.jpg</guid>
+        </item>
+        <item>
+            <title>Stamens</title>
+            <link>slides/Stamens.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Stamens.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Stamens.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="4/23/11 1:08 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Stamens.jpg</guid>
+        </item>
+        <item>
+            <title>Peacock tail</title>
+            <link>slides/Peacock tail.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Peacock tail.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Peacock tail.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="1/23/12 4:03 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Peacock tail.jpg</guid>
+        </item>
+        <item>
+            <title>Leopard skin</title>
+            <link>slides/Leopard skin.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Leopard skin.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Leopard skin.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="9/15/12 3:23 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Leopard skin.jpg</guid>
+        </item>
+        <item>
+            <title>Leaf</title>
+            <link>slides/Leaf.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Leaf.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Leaf.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="7/9/11 4:58 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Leaf.jpg</guid>
+        </item>
+        <item>
+            <title>Flower</title>
+            <link>slides/Flower.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Flower.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Flower.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="4/20/13 5:00 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Flower.jpg</guid>
+        </item>
+        <item>
+            <title>Horses</title>
+            <link>slides/Horses.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Horses.jpg" width="124" height="86"/>
+            <media:content type="image/jpeg" url="slides/Horses.jpg" width="800" height="552"/>
+            <jalbum:exif originalDate="12/27/12 12:20 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Horses.jpg</guid>
+        </item>
+        <item>
+            <title>Zebra</title>
+            <link>slides/Zebra.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Zebra.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Zebra.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="5/28/12 11:09 AM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Zebra.jpg</guid>
+        </item>
+    </channel>
+</rss>

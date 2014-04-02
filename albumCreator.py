@@ -1,9 +1,9 @@
 #!/usr/bin/python
-#comment
+
 from bs4 import BeautifulSoup
 import os
 import re
-#from os import path, remove
+
 DEBUG = 1
 
 def convert_exists_tag(tag):
@@ -71,6 +71,7 @@ def grabAlbumVars():
 		albumVars['albumDescription'] = albumVars['descript']
 
 	albumVars['albumTitle'] = os.getcwd().split('/')[-1]
+	albumVars['title'] = os.getcwd().split('/')[-1]
 	return albumVars
 
 
@@ -81,18 +82,36 @@ def replace_vars_in_text(albumVars, soup):
 
 	# Take each match, then call .replace() on the contained text 
 	#    and replace the $(VARIABLE) with variable from dict
-
 	find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
 	for template_variable in find_variables:
 		var_name = str(template_variable).translate(None, '${}')
 		if albumVars.get(var_name):
 			if DEBUG:
-				print("Attempting to replace " + template_variable + " with \"" + var_name + "\"")
+				print("Replacing " + template_variable + " with \"" + var_name + "\"")
 			fixed_text = unicode(template_variable).replace(template_variable, albumVars[var_name])
 			template_variable.replace_with(fixed_text)
 
 	return soup
-	
+
+def replace_vars_in_tags(albumVars, soup):
+	if DEBUG:
+		print("\nSearching for variables in tags")
+	var_match = re.compile('\$\{\w+\}')
+	for tags in soup.find_all():
+		for attr in tags.attrs.keys():
+			if var_match.match(str(tags[attr])):
+				var_name = str(tags[attr]).translate(None, '${}')
+				if albumVars.get(var_name):
+					if DEBUG:
+						print("Replacing " + tags[attr] + " with " + albumVars[var_name])
+					fixed_text = unicode(str(albumVars[var_name]))
+					tags[attr] = fixed_text
+				else:
+					print("Couldn't find value for " + tags[attr])
+
+	#find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
+	return soup
+
 
 if __name__ == "__main__":
 	albumVars = grabAlbumVars()
@@ -111,6 +130,9 @@ if __name__ == "__main__":
 
 	# Search for template vars in text
 	soup = replace_vars_in_text(albumVars, soup)
+
+	# Search for template vars in tags
+	soup = replace_vars_in_tags(albumVars, soup)
 
 	# Write final .html file
 	if os.path.isfile('index.html'):

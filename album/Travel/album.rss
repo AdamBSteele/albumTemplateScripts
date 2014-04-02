@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+    <channel>
+        <title>Travel</title>
+   	<link>..</link>
+        <generator>jAlbum 11</generator>
+   		<description></description>
+        <jalbum:absolutePath></jalbum:absolutePath>
+        <item>
+            <title>Stockholm</title>
+            <link>slides/Stockholm.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Stockholm.jpg" width="124" height="82"/>
+            <media:content type="image/jpeg" url="slides/Stockholm.jpg" width="800" height="531"/>
+            <jalbum:exif originalDate="2/17/09 8:38 PM" cameraMake="Canon" cameraModel="Canon EOS 1000D"/>
+            <guid isPermaLink="false">slides/Stockholm.jpg</guid>
+        </item>
+        <item>
+            <title>Cecina</title>
+            <link>slides/Cecina.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Cecina.jpg" width="124" height="87"/>
+            <media:content type="image/jpeg" url="slides/Cecina.jpg" width="800" height="564"/>
+            <jalbum:exif originalDate="7/25/11 7:44 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Cecina.jpg</guid>
+        </item>
+        <item>
+            <title>Bled</title>
+            <link>slides/Bled.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Bled.jpg" width="124" height="77"/>
+            <media:content type="image/jpeg" url="slides/Bled.jpg" width="800" height="495"/>
+            <jalbum:exif originalDate="10/22/12 5:35 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Bled.jpg</guid>
+        </item>
+        <item>
+            <title>Trieste</title>
+            <link>slides/Trieste.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Trieste.jpg" width="124" height="81"/>
+            <media:content type="image/jpeg" url="slides/Trieste.jpg" width="800" height="523"/>
+            <jalbum:exif originalDate="7/22/11 3:45 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Trieste.jpg</guid>
+        </item>
+        <item>
+            <title>Toscana</title>
+            <link>slides/Toscana.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Toscana.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Toscana.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="8/1/11 2:15 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Toscana.jpg</guid>
+        </item>
+        <item>
+            <title>Rome</title>
+            <link>slides/Rome.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Rome.jpg" width="124" height="86"/>
+            <media:content type="image/jpeg" url="slides/Rome.jpg" width="800" height="552"/>
+            <jalbum:exif originalDate="3/2/13 4:54 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Rome.jpg</guid>
+        </item>
+        <item>
+            <title>Pisa</title>
+            <link>slides/Pisa.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Pisa.jpg" width="124" height="92"/>
+            <media:content type="image/jpeg" url="slides/Pisa.jpg" width="800" height="596"/>
+            <jalbum:exif originalDate="7/28/11 2:56 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Pisa.jpg</guid>
+        </item>
+    </channel>
+</rss>

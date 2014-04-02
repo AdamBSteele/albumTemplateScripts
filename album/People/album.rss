@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+    <channel>
+        <title>People</title>
+   	<link>..</link>
+        <generator>jAlbum 11</generator>
+   		<description></description>
+        <jalbum:absolutePath></jalbum:absolutePath>
+        <item>
+            <title>Newborn</title>
+            <link>slides/Newborn.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:25 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Newborn.jpg" width="93" height="124"/>
+            <media:content type="image/jpeg" url="slides/Newborn.jpg" width="450" height="600"/>
+            <jalbum:exif originalDate="10/11/07 3:43 PM" cameraMake="Canon" cameraModel="Canon PowerShot S3 IS"/>
+            <guid isPermaLink="false">slides/Newborn.jpg</guid>
+        </item>
+        <item>
+            <title>David</title>
+            <link>slides/David.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:25 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/David.jpg" width="85" height="124"/>
+            <media:content type="image/jpeg" url="slides/David.jpg" width="409" height="600"/>
+            <jalbum:exif originalDate="10/15/08 2:20 PM" cameraMake="NIKON CORPORATION" cameraModel="NIKON D90"/>
+            <guid isPermaLink="false">slides/David.jpg</guid>
+        </item>
+        <item>
+            <title>Anders</title>
+            <link>slides/Anders.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:25 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Anders.jpg" width="124" height="96"/>
+            <media:content type="image/jpeg" url="slides/Anders.jpg" width="779" height="600"/>
+            <jalbum:exif originalDate="11/20/08 1:26 PM" cameraMake="NIKON CORPORATION" cameraModel="NIKON D90"/>
+            <guid isPermaLink="false">slides/Anders.jpg</guid>
+        </item>
+        <item>
+            <title>Laza</title>
+            <link>slides/Laza.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:25 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Laza.jpg" width="105" height="124"/>
+            <media:content type="image/jpeg" url="slides/Laza.jpg" width="508" height="600"/>
+            <jalbum:exif originalDate="3/4/13 1:22 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Laza.jpg</guid>
+        </item>
+        <item>
+            <title>jAlbum team</title>
+            <link>slides/jAlbum team.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:25 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/jAlbum team.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/jAlbum team.jpg" width="798" height="600"/>
+            <jalbum:exif originalDate="3/20/13 4:36 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/jAlbum team.jpg</guid>
+        </item>
+        <item>
+            <title>Jason, David, Anders</title>
+            <link>slides/Jason, David, Anders.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:25 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Jason, David, Anders.jpg" width="87" height="124"/>
+            <media:content type="image/jpeg" url="slides/Jason, David, Anders.jpg" width="423" height="600"/>
+            <jalbum:exif originalDate="3/6/12 2:30 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Jason, David, Anders.jpg</guid>
+        </item>
+    </channel>
+</rss>

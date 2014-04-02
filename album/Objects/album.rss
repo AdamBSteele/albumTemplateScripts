@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:jalbum="http://jalbum.net/jalbumrss">
+    <channel>
+        <title>Objects</title>
+   	<link>..</link>
+        <generator>jAlbum 11</generator>
+   		<description></description>
+        <jalbum:absolutePath></jalbum:absolutePath>
+        <item>
+            <title>Tomatoes</title>
+            <link>slides/Tomatoes.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Tomatoes.jpg" width="124" height="86"/>
+            <media:content type="image/jpeg" url="slides/Tomatoes.jpg" width="800" height="555"/>
+            <jalbum:exif originalDate="8/6/07 11:29 AM" cameraMake="Canon" cameraModel="Canon PowerShot S3 IS"/>
+            <guid isPermaLink="false">slides/Tomatoes.jpg</guid>
+        </item>
+        <item>
+            <title>Clock</title>
+            <link>slides/Clock.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Clock.jpg" width="124" height="92"/>
+            <media:content type="image/jpeg" url="slides/Clock.jpg" width="800" height="594"/>
+            <jalbum:exif originalDate="8/9/09 3:46 PM" cameraMake="Canon" cameraModel="Canon EOS 1000D"/>
+            <guid isPermaLink="false">slides/Clock.jpg</guid>
+        </item>
+        <item>
+            <title>Guitar</title>
+            <link>slides/Guitar.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Guitar.jpg" width="124" height="83"/>
+            <media:content type="image/jpeg" url="slides/Guitar.jpg" width="800" height="533"/>
+            <jalbum:exif originalDate="12/21/09 10:06 PM" cameraMake="Canon" cameraModel="Canon EOS 1000D"/>
+            <guid isPermaLink="false">slides/Guitar.jpg</guid>
+        </item>
+        <item>
+            <title>Porcelain Sheep</title>
+            <link>slides/Porcelain Sheep.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Porcelain Sheep.jpg" width="124" height="83"/>
+            <media:content type="image/jpeg" url="slides/Porcelain Sheep.jpg" width="800" height="533"/>
+            <jalbum:exif originalDate="12/21/09 10:23 PM" cameraMake="Canon" cameraModel="Canon EOS 1000D"/>
+            <guid isPermaLink="false">slides/Porcelain Sheep.jpg</guid>
+        </item>
+        <item>
+            <title>Chess</title>
+            <link>slides/Chess.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Chess.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Chess.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="3/19/13 10:34 AM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Chess.jpg</guid>
+        </item>
+        <item>
+            <title>Waterpaint</title>
+            <link>slides/Waterpaint.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Waterpaint.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Waterpaint.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="5/1/11 12:35 PM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Waterpaint.jpg</guid>
+        </item>
+        <item>
+            <title>Rust</title>
+            <link>slides/Rust.html</link>
+            <pubDate>Tue, 01 Apr 2014 18:15:26 -0400</pubDate>
+            <description></description>
+            <media:description type="html"></media:description>
+            <media:thumbnail url="thumbs/Rust.jpg" width="124" height="93"/>
+            <media:content type="image/jpeg" url="slides/Rust.jpg" width="800" height="600"/>
+            <jalbum:exif originalDate="10/31/11 10:24 AM" cameraMake="OLYMPUS IMAGING CORP." cameraModel="XZ-1"/>
+            <guid isPermaLink="false">slides/Rust.jpg</guid>
+        </item>
+    </channel>
+</rss>
