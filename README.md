@@ -10,4 +10,4 @@ Currently supports the following <ja> tags:
 
 Also supports replacement of ${VARS} inside of attributes or text.
 
-Currently, we are working on find the source of more variables, especially those related to path.We are alsow working on more complex  tags such as complex "if" statements.
+Currently, we are working on finding the source of more variables, especially those related to path.We are alsow working on more complex  tags such as complex "if" statements.
