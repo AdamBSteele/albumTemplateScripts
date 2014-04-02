@@ -80,7 +80,8 @@ def replace_vars_in_text(albumVars, soup):
 
 	# Take each match, then call .replace() on the contained text 
 	#    and replace the original with that:
-
+	# WORKING ON THIS NOW:
+	"""
 	find_variables = soup.find_all(text = re.compile('\{\w\}'))
 	for comment in findtoure:
 	    fixed_text = unicode(comment).replace('Gnegneri Toure Yaya', 'Yaya Toure')
@@ -93,6 +94,7 @@ def replace_vars_in_text(albumVars, soup):
 			print variables.text
 		#match.wrap(soup.new_tag('mark'))
 		#soup
+	"""
 	return soup
 	
 
