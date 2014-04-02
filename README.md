@@ -5,6 +5,7 @@ Takes jAlbum files and turns them into static html.
 
 
 Step 1)  Parse input files and build dictionary of variables.
+
 Step 2)  Use variables to resolve \<ja> tags and htt variables.
 
 Currently supports the following <ja> tags:
