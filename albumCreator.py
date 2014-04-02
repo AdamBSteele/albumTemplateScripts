@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from bs4 import BeautifulSoup
 import os
@@ -27,7 +27,7 @@ def tags_if(albumVars, soup):
 		if tag.get('test'):
 			# Testing boolean values:
 			if tag['test'][0] == '$':
-				testVar = tag.get('test').translate(None, '${}')
+				testVar = tag.get('test').replace('', '${}')
 				if albumVars.get(testVar) == 'true':
 					tag.replaceWithChildren()
 					if DEBUG:
@@ -87,7 +87,7 @@ def replace_vars_in_text(albumVars, soup):
 	#    and replace the $(VARIABLE) with variable from dict
 	find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
 	for template_variable in find_variables:
-		var_name = str(template_variable).translate(None, '${}')
+		var_name = str(template_variable).replace('', '${}')
 		if albumVars.get(var_name):
 			if DEBUG:
 				print("Replacing " + template_variable + " with \"" + var_name + "\"")
@@ -103,7 +103,7 @@ def replace_vars_in_tags(albumVars, soup):
 	for tags in soup.find_all():
 		for attr in tags.attrs.keys():
 			if var_match.match(str(tags[attr])):
-				var_name = str(tags[attr]).translate(None, '${}')
+				var_name = str(tags[attr]).replace('', '${}')
 				if albumVars.get(var_name):
 					if DEBUG:
 						print("Replacing " + tags[attr] + " with " + albumVars[var_name])
