@@ -70,8 +70,11 @@ def grabAlbumVars():
 	if albumVars.get('descript'):
 		albumVars['albumDescription'] = albumVars['descript']
 
-	albumVars['albumTitle'] = os.getcwd().split('/')[-1]
-	albumVars['title'] = os.getcwd().split('/')[-1]
+	# Grabbing path variables
+	albumVars['albumTitle'] = os.getcwd().split('/')[-2]
+	albumVars['title'] = os.getcwd().split('/')[-2]
+
+	
 	return albumVars
 
 
@@ -107,7 +110,8 @@ def replace_vars_in_tags(albumVars, soup):
 					fixed_text = unicode(str(albumVars[var_name]))
 					tags[attr] = fixed_text
 				else:
-					print("Couldn't find value for " + tags[attr])
+					if DEBUG:
+						print("Couldn't find value for " + tags[attr])
 
 	#find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
 	return soup
