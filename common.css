@@ -1,0 +1,61 @@
+/*
+ Common style sheet file (intended to be shared by multiple styles).
+ Will be processed and added to the "res" directory of the generated album. (since v8.5.3)
+ */
+
+body {
+	font-family: Verdana, Arial, sans-serif;
+	margin: 8px;
+	text-align: center;
+}
+a {
+	outline: 0;
+}
+a:link, a:visited, a:active {
+	text-decoration: none
+}
+div {
+	margin: 8px;
+}
+img {
+	border: none;
+}
+.albumtitle {
+	font-size: ${albumTitleFontSize}px;
+	font-weight: ${albumTitleFontWeight};
+}
+.thumbtable {
+	margin: 8px auto;
+	border-spacing: 10px;
+	*border-collapse: expression('separate', cellSpacing = '10px'); /* for IE6 & IE7 */
+}
+.thumbtable td {
+	text-align: center;
+	vertical-align: ${tableImageAlignment};
+	font-size: 14px;
+	width: ${tableCellWidth}px;
+}
+.thumbtable td img {
+	padding: ${borderPadding}px;
+}
+.noborder {
+	border: none !important;
+}
+.thumbnav img {
+	padding: ${borderPadding}px;
+}
+.slideimage {
+	font-size: 14px;
+}
+.slideimage img {
+	padding: <%= 2 * borderPadding %>px;
+}
+video {
+	padding: <%= 2 * borderPadding %>px;
+}
+.homepagelink {
+	font-size: 14px;
+}
+.creditlink {
+	font-size: 10px;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Template file for index pages. -->
+<html>
+<head>
+<meta charset="${textEncoding}">
+<meta name="generator" content="jAlbum ${internalVersion} with ${skinName} ${skinVersion}, ${style} style, album creation date ${currentDate}">
+<ja:if exists="albumTags"><meta content="${albumTags}" name="keywords"></ja:if>
+<ja:if exists="albumDescription"><meta content="${albumDescription}" name="description"></ja:if>
+<title>${albumTitle}</title>
+<link href="${resPath}/common.css" rel="stylesheet">
+<link href="${stylePath}" rel="stylesheet">
+</head>
+<body>
+<%-- Show album title, if chosen in user interface --%>
+<ja:if test="${showAlbumTitle}"><div class="albumtitle">${albumTitle}</div></ja:if>
+<%-- Link to parent index, if any --%>
+<ja:if test="<%=level==0 && !homepageAddress.equals("")%>"><a href="${homepageAddress}"><img src="${resPath}/up.png" alt="${homepageLinkText}" title="${homepageLinkText}"></a></ja:if>
+<ja:else><ja:if exists="parentIndexPage"><a href="${parentIndexPage}"><img src="${resPath}/up.png" alt="$text.up" title="$text.up"></a></ja:if></ja:else>
+<%-- Create navigation buttons if more than one index page --%>
+<ja:if exists="totalIndexes">
+<%-- Previous button --%>
+<ja:if exists="previousIndexPage"><a href="${previousIndexPage}"><img src="${resPath}/prev.png" alt="$text.previousPage" title="$text.previousPage"></a></ja:if>
+<ja:else><img src="${resPath}/prev-disabled.png" alt="$text.atFirstPage" title="$text.atFirstPage"></ja:else>
+<%-- Next button --%>
+<ja:if exists="nextIndexPage"><a href="${nextIndexPage}"><img src="${resPath}/next.png" alt="$text.nextPage" title="$text.nextPage"></a></ja:if>
+<ja:else><img src="${resPath}/next-disabled.png" alt="$text.atLastPage" title="$text.atLastPage"></ja:else>
+</ja:if>
+<%-- Include header.inc from image directory if present --%>
+<ja:include page="header.inc" />
+<%-- Iterate through images and produce an index table --%>
+<table class="thumbtable">
+<ja:rowiterator>
+	<tr>
+	<ja:coliterator>
+		<td>
+			<a href="${closeupPath}">
+				<ja:if exists="iconPath"><img class="noborder" src="${iconPath}" width="${thumbWidth}" height="${thumbHeight}" alt="${title}" title="${title}"><br>${title}</ja:if>
+				<ja:else><img src="${thumbPath}" width="${thumbWidth}" height="${thumbHeight}" alt="${title}" title="${title}"><ja:if exists="folder"><br>${title}</ja:if></ja:else>
+			</a>
+		</td>
+	</ja:coliterator>
+	</tr>
+</ja:rowiterator>
+</table>
+<ja:if exists="homepageAddress"><ja:if exists="homepageLinkText"><div class="homepagelink"><a href="${homepageAddress}">${homepageLinkText}</a></div></ja:if></ja:if>
+<ja:if exists="creditText"><div class="creditlink"><a href="${generatorUrl}" target="_blank">${creditText}</a></div></ja:if>
+<%-- Include footer.inc from image directory if present --%>
+<ja:include page="footer.inc" />
+</body>
+</html>

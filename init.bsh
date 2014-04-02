@@ -1,0 +1,26 @@
+// BeanShell script that is executed on album generation
+
+
+// Function to compute size of video player
+private int[] mediaScale(float vW, float vH, float maxW, float maxH) {
+	rF = Math.min(maxW / vW, maxH / vH);
+	if(rF > 1) return new int[] {vW, vH};
+	else return new int[] {vW * rF, vH * rF};
+}
+
+// Get skin name and version from
+// skin.properties file
+
+Properties skinProps = new Properties();
+skinProps.load(new FileInputStream(skinDirectory.getAbsolutePath() + "/skin.properties"));
+skinVersion = skinProps.getProperty("version");
+skinName = skinProps.getProperty("title");
+
+// Compute some variables used in the CSS, based on choices in the user interface
+borderWidth = useLineborder ? 1 : 0;
+borderPadding = useLineborder ? 2 : 0;
+tableCellWidth = useLineborder ? maxThumbWidth + (2 * (borderPadding + borderWidth)) : maxThumbWidth;
+tableImageAlignment = fixedShapeThumbs ? "top" : "middle";
+
+// Add the fixed-shape filter if chosen in the user interface
+if(fixedShapeThumbs) engine.addFilter(new FixedShapeFilter(), JAFilter.THUMBNAILS_PRESCALE_STAGE);

@@ -1,0 +1,26 @@
+/*
+ * Combined style sheet for the index pages and the slide pages, with only classes that are different for this style
+ */
+
+body {
+	color: #eeeeee;
+	background-color: #000000;
+}
+a {
+	color: #eeeeee;
+}
+a:hover {
+	color: red;
+}
+.thumbtable td img {
+	border: ${borderWidth}px solid #eeeeee;
+}
+.thumbnav img {
+	border: ${borderWidth}px solid #eeeeee;
+}
+.slideimage img {
+	border: ${borderWidth}px solid #eeeeee;
+}
+video {
+	border: ${borderWidth}px solid #eeeeee;
+}

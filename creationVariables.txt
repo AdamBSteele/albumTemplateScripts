@@ -1,0 +1,26 @@
+// The file contains variables that users define
+// during the album creation process  (see: onload.bsh)
+
+// All lines are written as:
+// <Description>:  (possible values)  [Default]
+
+// Show album title on all pages: bool [true]
+showAlbumTitle=true
+
+// Font size options: 16, 10, 36  [16]
+albumTitleFontSize=16
+
+// Font Weight: normal, bold  [normal]
+albumTitleFontWeight=normal
+
+// Add thumbnail navigation between slides: bool [false]
+thumbnailNavigation=false
+
+// Place a line border around images: bool [false]
+useLineborder=false
+
+// Fixed-shape thumbnails: bool [false]
+fixedShapeThumbs=false
+
+// Google Maps Support: bool [false]
+googleMaps=false

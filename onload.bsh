@@ -1,0 +1,71 @@
+/*
+ * This script is run when a skin is selected.
+ * The script produces the user interface, and can be edited to add or change user interface options.
+ * Author David Ekholm, modified by jGromit.
+
+   BeanShell script that is executed on skin selection/loading
+ */
+ 
+import se.datadosen.component.*;
+import se.datadosen.jalbum.*;
+//  Python note:  look in here to initialize variables.
+
+// Retrieve information from the skin.properties file
+
+SkinProperties skinProps = new SkinProperties(skinDirectory);
+String skinVersion = skinProps.getProperty(SkinProperties.VERSION);
+String skinAuthor = skinProps.getProperty(SkinProperties.AUTHOR);
+
+// Controls that are to be imported into JAlbum as variables
+
+ControlPanel ui = new ControlPanel() {
+	ControlPanel settingsPanel = new ControlPanel() {
+		JCheckBox showAlbumTitle = new JCheckBox("Show album title on all pages", true);
+		JSpinner albumTitleFontSize = new JSpinner(new SpinnerNumberModel(16, 10, 36, 1));
+		JComboBox albumTitleFontWeight = new JComboBox(new String[]{"normal", "bold"});
+		JCheckBox thumbnailNavigation = new JCheckBox("Add thumbnail navigation between slides", false);
+		JCheckBox useLineborder = new JCheckBox("Place a line border around images", false);
+		JCheckBox fixedShapeThumbs = new JCheckBox("Fixed-shape thumbnails", false);
+		JCheckBox googleMaps = new JCheckBox("Google Maps support", false);
+
+		{
+			add("br", showAlbumTitle);
+			add("br", new JLabelFor("Album title font size", albumTitleFontSize));
+			add("tab", albumTitleFontSize);
+			add(new JLabelFor("px", albumTitleFontSize));
+			add("br", new JLabelFor("Album title font weight", albumTitleFontWeight));
+			add("tab", albumTitleFontWeight);
+			add("br", thumbnailNavigation);
+			add("br", useLineborder);
+			add("br", fixedShapeThumbs);
+			add("br", googleMaps);			
+		}
+		new StateMonitor() {
+			public void onChange() {
+				enable(showAlbumTitle.isSelected(), albumTitleFontSize, albumTitleFontWeight);
+			}
+		}.add(showAlbumTitle).done();
+	};
+	ControlPanel aboutPanel = new ControlPanel() {
+		JLinkLabel developerCenter = new JLinkLabel("jAlbum Developer Center");
+		developerCenter.setURL("http://jalbum.net/developer");
+		add("br", new JLabel(skin + " version " + skinVersion + ", ©2013 by " + skinAuthor));
+		add("br", new JLabel("A skeletal skin, intended to provide a framework for further development"));
+		add("br", new JLabel("This is a sample user interface (see file \"onload.bsh\"), designed to"));
+		add("br", new JLabel("demonstrate how such an interface is assembled"));
+		add("br", developerCenter);
+	};
+	JTabbedPane tabs = new JTabbedPane() {
+		{
+			add(settingsPanel, "Settings");
+			add(aboutPanel, "About");
+		}
+	};
+	{
+		add("hfill vfill", tabs);
+	}
+};
+
+// Install components into jAlbum
+
+window.setSkinUI(ui);

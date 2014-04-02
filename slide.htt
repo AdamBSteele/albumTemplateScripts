@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!-- Template file for slide pages. -->
+<html>
+<head>
+<meta charset="${textEncoding}">
+<title>${albumTitle}</title>
+<link href="${resPath}/common.css" rel="stylesheet">
+<link href="${stylePath}" rel="stylesheet">
+<ja:if test="<%=fileCategory == Category.video%>">
+<![if !IE]>
+<script src="${resPath}/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+var v = document.querySelector('video'),
+s = v.querySelector('source');
+s.addEventListener('error', function(ev) {
+var d = document.createElement('div');
+d.innerHTML = v.innerHTML;
+v.parentNode.replaceChild(d, v);
+}, false);
+});
+</script>
+<![endif]>
+</ja:if>
+</head>
+<body>
+<%-- Show album title, if chosen in user interface --%>
+<ja:if test="${showAlbumTitle}"><div class="albumtitle">${albumTitle}</div></ja:if>
+<div>
+<%-- Index button --%>
+<a href="../${indexPage}"><img src="${resPath}/index.png" alt="$text.indexPage" title="$text.indexPage"></a>
+<%-- Previous button --%>
+<ja:if exists="previousPage"><a href="${previousPage}"><img src="${resPath}/prev.png" alt="$text.previousPage" title="$text.previousPage"></a></ja:if>
+<ja:else><img src="${resPath}/prev-disabled.png" alt="$text.atFirstPage" title="$text.atFirstPage"></ja:else>
+<%-- Next button --%>
+<ja:if exists="nextPage"><a href="${nextPage}"><img src="${resPath}/next.png" alt="$text.nextPage" title="$text.nextPage"></a></ja:if>
+<ja:else><img src="${resPath}/next-disabled.png" alt="$text.atLastPage" title="$text.atLastPage"></ja:else>
+<%-- Google Maps button --%>
+<ja:if test="${googleMaps}"><ja:if exists="gpsLocation"><a href="https://maps.google.com/?q=${gpsLocation}"><img src="${resPath}/location.png" alt="$text.mapLabel" title="$text.mapLabel"></a></ja:if></ja:if>
+</div>
+<%-- Show thumbnail navigation, if chosen in user interface --%>
+<ja:if test="${thumbnailNavigation}">
+<div class="thumbnav">
+<ja:fileiterator start="-3" count="7" nodirs>
+	<a href="${closeupPath}"><img src="${thumbPath}" width="<%=thumbWidth/3%>" height="<%=thumbHeight/3%>" alt="${title}" title="${title}"></a>
+</ja:fileiterator>
+</div>
+</ja:if>
+<div class="slideimage">
+<%-- If video, show it instead of image --%>
+<ja:if test="<%=fileCategory == Category.video%>">
+<%
+if(engine.getImageLinking().equals("LinkOriginals")) vidDims = new int[] {videoWidth, videoHeight};
+else vidDims = mediaScale(videoWidth, videoHeight, maxImageWidth, maxImageHeight);
+%>
+<video width="<%=vidDims[0]%>" height="<%=vidDims[1]%>" controls poster="${imagePath}"><source src="${originalPath}" type="video/mp4"><a href="${originalPath}"><img src="${imagePath}" width="<%=vidDims[0]%>" height="<%=vidDims[1]%>" alt="$text.playVideo" title="$text.playVideo"></a></video>
+</ja:if>
+<ja:else>
+<%-- Image, maybe with link to original --%>
+<ja:if exists=originalPath>
+	<a href="${originalPath}"><img src="${imagePath}" width="${imageWidth}" height="${imageHeight}" alt="$text.originalImage" title="$text.originalImage"></a>
+</ja:if>
+<ja:else>
+	<img src="${imagePath}" width="${imageWidth}" height="${imageHeight}" alt="${title}">
+</ja:else>
+</ja:else>
+<%-- Always display comment below image (if exists) --%>
+<ja:if exists="comment"><br>${comment}</ja:if>
+</div>
+<ja:if exists="homepageAddress"><ja:if exists="homepageLinkText"><div class="homepagelink"><a href="${homepageAddress}">${homepageLinkText}</a></div></ja:if></ja:if>
+<ja:if exists="creditText"><div class="creditlink"><a href="${generatorUrl}" target="_blank">${creditText}</a></div></ja:if>
+</body>
+</html>

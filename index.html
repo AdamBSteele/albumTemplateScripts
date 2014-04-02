@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- Template file for index pages. -->
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="jAlbum ${internalVersion} with ${skinName} ${skinVersion}, ${style} style, album creation date ${currentDate}" name="generator"/>
+  <meta content="${albumDescription}" name="description"/>
+  <title>
+   ${albumTitle}
+  </title>
+  <link href="${resPath}/common.css" rel="stylesheet"/>
+  <link href="${stylePath}" rel="stylesheet"/>
+ </head>
+ <body>
+  <div class="albumtitle">
+   ${albumTitle}
+  </div>
+  <ja:if test="&lt;%=level==0 &amp;&amp; !homepageAddress.equals(">
+   "&gt;
+   <a href="${homepageAddress}">
+    <img alt="${homepageLinkText}" src="${resPath}/up.png" title="${homepageLinkText}"/>
+   </a>
+  </ja:if>
+  <ja:else>
+  </ja:else>
+  <ja:include page="header.inc">
+  </ja:include>
+  <table class="thumbtable">
+   <ja:rowiterator>
+    <tr>
+     <ja:coliterator>
+      <td>
+       <a href="${closeupPath}">
+        <ja:else>
+         <img alt="${title}" height="${thumbHeight}" src="${thumbPath}" title="${title}" width="${thumbWidth}"/>
+        </ja:else>
+       </a>
+      </td>
+     </ja:coliterator>
+    </tr>
+   </ja:rowiterator>
+  </table>
+  <ja:include page="footer.inc">
+  </ja:include>
+ </body>
+</html>
