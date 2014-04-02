@@ -70,6 +70,7 @@ def grabAlbumVars():
 	if albumVars.get('descript'):
 		albumVars['albumDescription'] = albumVars['descript']
 
+	albumVars['albumTitle'] = os.getcwd().split('/')[-1]
 	return albumVars
 
 
@@ -81,12 +82,15 @@ def replace_vars_in_text(albumVars, soup):
 	# Take each match, then call .replace() on the contained text 
 	#    and replace the original with that:
 	# WORKING ON THIS NOW:
+	find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
+	for template_variable in find_variables:
+		var_name = str(template_variable).translate(None, '${}')
+		if albumVars.get(var_name):
+			if DEBUG:
+				print("Attempting to replace " + template_variable + " with \"" + var_name + "\"")
+			fixed_text = unicode(template_variable).replace(template_variable, albumVars[var_name])
+			template_variable.replace_with(fixed_text)
 	"""
-	find_variables = soup.find_all(text = re.compile('\{\w\}'))
-	for comment in findtoure:
-	    fixed_text = unicode(comment).replace('Gnegneri Toure Yaya', 'Yaya Toure')
-	    comment.replace_with(fixed_text)
-
 	prog = re.compile('\{\w\}')
 	for tag in all_tags:
 		variables = prog.match(tag.text)
@@ -106,14 +110,18 @@ if __name__ == "__main__":
 		for x in albumVars.keys():
 			print(str(x) + ": " + str(albumVars[x]))
 
-	if os.path.isfile('index.html'):
-		os.remove('index.html')
 
-	index_final = open('index.html', 'w+')
 	index_template = open('index.htt')
 	soup = BeautifulSoup(index_template)
 
+	# Search for if tags
 	soup = tags_if(albumVars, soup)
+
+	# Search for template vars in text
 	soup = replace_vars_in_text(albumVars, soup)
 
+	# Write final .html file
+	if os.path.isfile('index.html'):
+		os.remove('index.html')
+	index_final = open('index.html', 'w+')
 	index_final.write(soup.prettify())
