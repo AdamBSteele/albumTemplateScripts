@@ -80,8 +80,8 @@ def replace_vars_in_text(albumVars, soup):
 		print("\nSearching for variables in text")
 
 	# Take each match, then call .replace() on the contained text 
-	#    and replace the original with that:
-	# WORKING ON THIS NOW:
+	#    and replace the $(VARIABLE) with variable from dict
+
 	find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
 	for template_variable in find_variables:
 		var_name = str(template_variable).translate(None, '${}')
@@ -90,15 +90,7 @@ def replace_vars_in_text(albumVars, soup):
 				print("Attempting to replace " + template_variable + " with \"" + var_name + "\"")
 			fixed_text = unicode(template_variable).replace(template_variable, albumVars[var_name])
 			template_variable.replace_with(fixed_text)
-	"""
-	prog = re.compile('\{\w\}')
-	for tag in all_tags:
-		variables = prog.match(tag.text)
-		if variables:
-			print variables.text
-		#match.wrap(soup.new_tag('mark'))
-		#soup
-	"""
+
 	return soup
 	
 
