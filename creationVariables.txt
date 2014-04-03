@@ -24,3 +24,5 @@ fixedShapeThumbs=false
 
 // Google Maps Support: bool [false]
 googleMaps=false
+
+showAlbumTitle=false
