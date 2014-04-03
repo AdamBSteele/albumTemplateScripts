@@ -4,98 +4,11 @@ from bs4 import BeautifulSoup
 import os
 import re
 
-DEBUG_TRANSCRIBE = 1
-DEBUG_DICTIONARY = 0
+DEBUG_TRANSCRIBE = 0
+DEBUG_DICTIONARY = 1
 DEBUG_IF_STATEMENT = 1
-DEBUG_VAR_REPLACE = 0
-
-def transcribe_if_attrs():
-	"""
-	Backstory:
-	The if statements withing <ja if test> tags contain quotation characters
-	in their attributes.  This is not HTML-compliant, and it causes
-	BeautifulSoup to not read the full tag (it stops at quote chars).
-
-	Bad:
-		<ja:if test="<%=!homepageAddress.equals("someValue")%>">
-
-	Good:
-		<ja:if test="<%=!homepageAddress.equals(someValue)%>">
-	
-	This function:
-		1) Reads a line from index.htt
-		2) Changes the line if it contains a malformed attribute
-		3) Writes the line to index.html
-	"""
-
-	index_template = open('index.htt')
-	index_final = open('index.html', 'w+')
-	print("Transcribing if attributes")
-
-	# Use regex to search for conditional in each line
-	conditional_finder = re.compile('<%=.*%>')
-	for line in index_template:
-		conditional = conditional_finder.search(line)
-		if conditional:
-			inner_statement = conditional.group(0)[3:-2]
-			if DEBUG_TRANSCRIBE:
-				print("conditional = " + conditional.group(0))
-				print("innter_statement = " + inner_statement)
-			fixed_statement = inner_statement.replace('\"', '')
-			line = line.replace(inner_statement, fixed_statement)
-			if DEBUG_TRANSCRIBE:
-				print("Wrote in: " + line)
-			index_final.write(line)
-		else:
-			index_final.write(line)
-	index_template.close()
-	index_final.seek(0)
-
-	if DEBUG_TRANSCRIBE:
-		debug_file = open('debug.html', 'w+')
-		for line in index_final:
-			debug_file.write(line)
-		index_final.seek(0)
-
-	return index_final
-
-
-def tags_if(albumVars, soup):
-	if DEBUG_IF_STATEMENT:
-		print("\nSearching index.htt for if tags")
-
-	for tag in soup.find_all('ja:if'):
-		if tag.get('exists'):
-			if albumVars.get(tag['exists']):
-				tag.replaceWithChildren()
-				if DEBUG_IF_STATEMENT:
-					print("Exists: " + str(tag['exists']) + " YES = " + albumVars[tag['exists']])
-			else:
-				tag.extract()
-				if DEBUG_IF_STATEMENT:
-					print("Exists: " + str(tag['exists']) + " NO ")
-
-		if tag.get('test'):
-			# Testing boolean values:
-			if tag['test'][0] == '$':
-				testVar = re.sub('[${}]', '', str(tag.get('test')))
-				if albumVars.get(testVar) == 'true':
-					tag.replaceWithChildren()
-				if DEBUG_IF_STATEMENT:
-					print("Bool test: " + testVar + " = " + albumVars[testVar])
-
-			# Testing conditionals:
-			else:
-				re_conditionals = re.compile('<%=.*%>')
-				conditionals = re_conditionals.match(tag['test'])
-				if conditionals:
-					print("Found conditionals: " + conditionals.group(0))
-				if DEBUG_IF_STATEMENT:
-					print("IF: " +  "\"" + tag['test'] + "\" has failed" )
-					print("TAG IS:")
-					print(tag.attrs)
-				
-	return soup
+DEBUG_VAR_REPLACE = 1
+DEBUG_EVALUATE = 1
 
 def grabAlbumVars():
 
@@ -132,12 +45,226 @@ def grabAlbumVars():
 	# Grabbing path variables
 	albumVars['albumTitle'] = os.getcwd().split('/')[-2]
 	albumVars['title'] = os.getcwd().split('/')[-2]
-
+	albumVars['level'] = '0'
 	
 	return albumVars
 
 
+def transcribe_if_attrs():
+	"""
+	Backstory:
+	The if statements withing <ja if test> tags contain quotation characters
+	in their attributes.  This is not HTML-compliant, and it causes
+	BeautifulSoup to not read the full tag (it stops at quote chars).
+
+	Bad:
+		<ja:if test="<%=!homepageAddress.equals("someValue")%>">
+
+	Good:
+		<ja:if test="<%=!homepageAddress.equals(someValue)%>">
+	
+	This function:
+		1) Reads a line from index.htt
+		2) Changes the line if it contains a malformed attribute
+		3) Writes the line to index.html
+	"""
+
+	index_template = open('index.htt')
+	our_html = open('index.html', 'w+')
+	print("Transcribing if attributes")
+
+	# Use regex to search for conditional in each line
+	conditional_finder = re.compile('<%=.*%>')
+	for line in index_template:
+		conditional = conditional_finder.search(line)
+		if conditional:
+			inner_statement = conditional.group(0)[3:-2]
+			if DEBUG_TRANSCRIBE:
+				print("conditional = " + conditional.group(0))
+				print("innter_statement = " + inner_statement)
+			fixed_statement = inner_statement.replace('\"', '')
+			line = line.replace(inner_statement, fixed_statement)
+			if DEBUG_TRANSCRIBE:
+				print("Wrote in: " + line)
+			our_html.write(line)
+		else:
+			our_html.write(line)
+	index_template.close()
+	our_html.seek(0)
+
+	if DEBUG_TRANSCRIBE:
+		debug_file = open('debug.html', 'w+')
+		for line in our_html:
+			debug_file.write(line)
+		our_html.seek(0)
+		soup = BeautifulSoup(debug_file)
+		debug_file.write(soup.prettify())
+
+	return our_html
+
+
+def handling_if_tags(albumVars, soup):
+
+	if DEBUG_IF_STATEMENT:
+		print("\nSearching index.htt for if tags")
+
+	for tag in soup.find_all('ja:if'):
+		if evaluate_if(tag, albumVars):
+			tag.replaceWithChildren()
+		else:
+			# find else tags
+			tag.extract()
+			pass
+	return soup
+
+def evaluate_if(tag, albumVars):
+	"""
+	There are three kinds of if tags:
+
+	Exists:
+		<ja:if exists="variableName">
+
+	Test (Simple Boolean):
+		<ja:if test="${showAlbumTitle}"
+
+	Test (Complex Boolean)
+		<ja:if test="<%=level==0 && !homepageAddress.equals("")%>">
+	"""
+
+	# Exists
+	if tag.get('exists'):
+		
+		if DEBUG_IF_STATEMENT:
+			print("Exists? " + tag['exists'])
+		try: 
+			value = albumVars[tag['exists']]
+		except KeyError as e:
+			print('KeyError: "%s"' % str(e))
+			return False
+
+		return True
+
+	if tag.get('test'):
+
+		# Test (Simple Boolean)
+		if tag['test'][0] == '$':
+			testVar = re.sub('[${}]', '', str(tag.get('test')))			
+			if DEBUG_IF_STATEMENT:
+				print("Bool: " + testVar)
+
+			try: 
+				value = albumVars[testVar]
+			except KeyError as e:
+				print('KeyError:  "%s"' % str(e))
+				return False
+
+			if value == 'true':
+				if DEBUG_IF_STATEMENT:
+					print("True")
+				return True
+			if value == 'false':
+				if DEBUG_IF_STATEMENT:
+					print("False")
+				return False
+
+			else:
+				if DEBUG_IF_STATEMENT:
+					print("Non boolean value: \"" + value + "\"") 
+
+		# Testing (Complex Boolean):
+		else:
+			re_conditionals = re.compile('<%=.*%>')
+			conditional_text = re_conditionals.match(tag['test'])
+			if conditional_text:
+				if DEBUG_IF_STATEMENT:
+					print("Evaluate: " + conditional_text.group(0))
+				if evaluate_complex_boolean(conditional_text.group(0), albumVars):
+					if DEBUG_IF_STATEMENT:
+						print("True")
+					return True
+				else:
+					if DEBUG_IF_STATEMENT:
+						print("False")
+					return False
+
+
+def evaluate_complex_boolean(conditional, albumVars):
+	"""
+	Evaluates <ja if> conditionals:
+		i.e. <%= conditonal =>
+
+	Works on:
+		Anded conditionals:
+			x && y && z	
+
+		Orred conditionals:	
+			x || y || z
+
+	Does not work on:
+		x && y || z
+		x || y && z
+
+
+	Step 1) Remove all the <%= => crap
+	Step 2) Split by && or ||
+	Step 3) Evaluate each inner statement
+	"""
+
+	# This line gets rid of the '<%='' and '=>' around conditionals
+	inner_text = conditional.split('%')[1][1:]
+
+	if DEBUG_EVALUATE:
+		print(" Evaluating: " + inner_text)
+
+	# Anded conditionals:
+	for anded_term in re.split('&&', inner_text):
+		#   !=   <-- Bang equals
+		bang_equals = False
+
+		#  x==y  + x!=y
+		if '=' in anded_term:
+			left_side = anded_term.split('=')[0].strip()
+			right_side = anded_term.split('=')[-1].strip()
+			if '!' in anded_term:
+				bang_equals = True
+
+		#  x.equals(y) + !x.equals(y)
+		if '.equals' in anded_term:
+			left_side = anded_term.split('.')[0].strip()
+			right_side = anded_term.split('()')[-1].strip()
+			# Is this '!x.equals()' or 'x.equals()'
+			if '!' in anded_term:
+				left_side = left_side[1:]
+				bang_equals = True
+
+		try: 
+			value = albumVars[left_side]
+		except KeyError as e:
+			print( 'KeyError:  "%s"' % str(e))
+			return False
+		
+		if DEBUG_EVALUATE:
+			print("albumVars[" + left_side + "] = " + str(albumVars[left_side]))
+
+		if value == right_side:
+			if bang_equals:
+				return False
+			else: continue
+		
+		else:
+			if bang_equals:
+				continue
+			return False
+		
+	# Default is false right now
+	return False
+				
+
 def replace_vars_in_text(albumVars, soup):
+	"""
+	Looks at all text inside html document
+	Replaces found variable with value from albumVars dictionary
+	"""
 
 	if DEBUG_VAR_REPLACE:
 		print("\nSearching for variables in text")
@@ -159,6 +286,12 @@ def replace_vars_in_text(albumVars, soup):
 	return soup
 
 def replace_vars_in_tags(albumVars, soup):
+	"""	
+		Looks at every attribute of every tag
+
+		If a variable is found, replaces variable with value
+		  from albumVars dictionary
+	"""
 	if DEBUG_VAR_REPLACE:
 		print("\nSearching for variables in tags")
 	var_match = re.compile('\$\{\w+\}')
@@ -179,6 +312,7 @@ def replace_vars_in_tags(albumVars, soup):
 
 
 if __name__ == "__main__":
+
 	albumVars = grabAlbumVars()
 
 	if DEBUG_DICTIONARY:
@@ -186,15 +320,11 @@ if __name__ == "__main__":
 		for x in albumVars.keys():
 			print(str(x) + ": " + str(albumVars[x]))
 
-
-	# Rewrite complex if tags because they aren't parsed properly
-	# by beautifulSoup
-	index_final = transcribe_if_attrs()
-
-	soup = BeautifulSoup(index_final)
+	our_html = transcribe_if_attrs()
+	soup = BeautifulSoup(our_html)
 
 	# Search for if tags
-	soup = tags_if(albumVars, soup)
+	soup = handling_if_tags(albumVars, soup)
 
 	# Search for template vars in text
 	soup = replace_vars_in_text(albumVars, soup)
@@ -206,4 +336,4 @@ if __name__ == "__main__":
 	if os.path.isfile('index.html'):
 		os.remove('index.html')
 
-	index_final.write(soup.prettify())
+	our_html.write(soup.prettify())
