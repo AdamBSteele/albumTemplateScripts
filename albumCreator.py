@@ -15,6 +15,7 @@ def grabAlbumVars():
 	albumVars = {}
 	if DEBUG_DICTIONARY:
 		print("Grabbing vars from meta.properties:")
+
 	# Grab meta variables:
 	for line in open('meta.properties'):
 		line = line.strip().split('=')
@@ -68,10 +69,11 @@ def transcribe_if_attrs():
 		2) Changes the line if it contains a malformed attribute
 		3) Writes the line to index.html
 	"""
+	if DEBUG_TRANSCRIBE:
+		print("Transcribing if attributes")
 
 	index_template = open('index.htt')
 	our_html = open('index.html', 'w+')
-	print("Transcribing if attributes")
 
 	# Use regex to search for conditional in each line
 	conditional_finder = re.compile('<%=.*%>')
@@ -139,11 +141,15 @@ def evaluate_if(tag, albumVars):
 		try: 
 			value = albumVars[tag['exists']]
 		except KeyError as e:
-			print('KeyError: "%s"' % str(e))
+			if DEBUG_IF_STATEMENT:
+				print('   KeyError: %s' % str(e))
 			return False
 
+		if DEBUG_IF_STATEMENT:
+			print('   Yes')
 		return True
 
+	# Test
 	if tag.get('test'):
 
 		# Test (Simple Boolean)
@@ -155,21 +161,21 @@ def evaluate_if(tag, albumVars):
 			try: 
 				value = albumVars[testVar]
 			except KeyError as e:
-				print('KeyError:  "%s"' % str(e))
+				print('   KeyError:  %s' % str(e))
 				return False
 
 			if value == 'true':
 				if DEBUG_IF_STATEMENT:
-					print("True")
+					print("   true")
 				return True
 			if value == 'false':
 				if DEBUG_IF_STATEMENT:
-					print("False")
+					print("   false")
 				return False
 
 			else:
 				if DEBUG_IF_STATEMENT:
-					print("Non boolean value: \"" + value + "\"") 
+					print("   Non boolean value: \"" + value + "\"") 
 
 		# Testing (Complex Boolean):
 		else:
@@ -180,11 +186,11 @@ def evaluate_if(tag, albumVars):
 					print("Evaluate: " + conditional_text.group(0))
 				if evaluate_complex_boolean(conditional_text.group(0), albumVars):
 					if DEBUG_IF_STATEMENT:
-						print("True")
+						print("   True")
 					return True
 				else:
 					if DEBUG_IF_STATEMENT:
-						print("False")
+						print("   False")
 					return False
 
 
@@ -240,11 +246,11 @@ def evaluate_complex_boolean(conditional, albumVars):
 		try: 
 			value = albumVars[left_side]
 		except KeyError as e:
-			print( 'KeyError:  "%s"' % str(e))
+			print('   KeyError:  %s' % str(e))
 			return False
 		
 		if DEBUG_EVALUATE:
-			print("albumVars[" + left_side + "] = " + str(albumVars[left_side]))
+			print(" albumVars[" + left_side + "] = " + str(value))
 
 		if value == right_side:
 			if bang_equals:
@@ -274,14 +280,19 @@ def replace_vars_in_text(albumVars, soup):
 	find_variables = soup.find_all(text = re.compile('\$\{\w+\}'))
 	for template_variable in find_variables:
 		var_name = re.sub('[${}]', '', str(template_variable))
-		if albumVars.get(var_name):
-			if DEBUG_VAR_REPLACE:
-				print("Replacing " + template_variable + " with \"" + var_name + "\"")
-			fixed_text = str(template_variable).replace(template_variable, albumVars[var_name])
-			template_variable.replace_with(fixed_text)
-		else:
-			print("Couldnt find " + template_variable + " with key \"" + var_name + "\"")
 
+		try: 
+			value = albumVars[var_name]
+		except KeyError as e:
+			if DEBUG_VAR_REPLACE:
+				print('   KeyError:  %s' % str(e))
+			continue
+
+		if DEBUG_VAR_REPLACE:
+			print("Replacing " + template_variable + " with \"" + value + "\"")
+
+		fixed_text = str(template_variable).replace(template_variable, value)
+		template_variable.replace_with(fixed_text)
 
 	return soup
 
@@ -299,14 +310,19 @@ def replace_vars_in_tags(albumVars, soup):
 		for attr in tags.attrs.keys():
 			if var_match.match(str(tags[attr])):
 				var_name = re.sub('[${}]', '', str(tags[attr]))
-				if albumVars.get(var_name):
+
+				try: 
+					value = albumVars[var_name]
+				except KeyError as e:
 					if DEBUG_VAR_REPLACE:
-						print("Replacing " + tags[attr] + " with " + albumVars[var_name])
-					fixed_text = albumVars[var_name]
-					tags[attr] = fixed_text
-				else:
-					if DEBUG_VAR_REPLACE:
-						print("Couldn't find value for " + tags[attr] + " KEY: " + var_name)
+						print('   KeyError:  %s' % str(e))
+					continue
+
+				if DEBUG_VAR_REPLACE:
+					print("Replacing " + tags[attr] + " with " + value)
+
+				fixed_text = albumVars[var_name]
+				tags[attr] = fixed_text
 
 	return soup
 
@@ -321,9 +337,9 @@ if __name__ == "__main__":
 			print(str(x) + ": " + str(albumVars[x]))
 
 	our_html = transcribe_if_attrs()
+
 	soup = BeautifulSoup(our_html)
 
-	# Search for if tags
 	soup = handling_if_tags(albumVars, soup)
 
 	# Search for template vars in text
