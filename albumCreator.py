@@ -10,6 +10,7 @@ DEBUG_IF_STATEMENT = 1
 DEBUG_VAR_REPLACE = 1
 DEBUG_EVALUATE = 1
 
+
 def grabAlbumVars():
 
 	albumVars = {}
@@ -44,8 +45,8 @@ def grabAlbumVars():
 		albumVars['albumDescription'] = albumVars['descript']
 
 	# Grabbing path variables
-	albumVars['albumTitle'] = os.getcwd().split('/')[-2]
-	albumVars['title'] = os.getcwd().split('/')[-2]
+	albumVars['albumTitle'] = os.getcwd().split('\\')[-2]
+	albumVars['title'] = os.getcwd().split('\\')[-2]
 	albumVars['level'] = '0'
 	
 	return albumVars
