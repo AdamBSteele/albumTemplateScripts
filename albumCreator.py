@@ -3,12 +3,13 @@
 from bs4 import BeautifulSoup
 import os
 import re
+import sys
 
 DEBUG_TRANSCRIBE = 0
-DEBUG_DICTIONARY = 1
+DEBUG_DICTIONARY = 0
 DEBUG_IF_STATEMENT = 1
-DEBUG_VAR_REPLACE = 1
-DEBUG_EVALUATE = 1
+DEBUG_VAR_REPLACE = 0
+DEBUG_EVALUATE = 0
 
 
 def grabAlbumVars():
@@ -45,8 +46,12 @@ def grabAlbumVars():
 		albumVars['albumDescription'] = albumVars['descript']
 
 	# Grabbing path variables
-	albumVars['albumTitle'] = os.getcwd().split('\\')[-2]
-	albumVars['title'] = os.getcwd().split('\\')[-2]
+	if "inux" in sys.platform:
+		albumVars['albumTitle'] = os.getcwd().split('/')[-2]
+		albumVars['title'] = os.getcwd().split('/')[-2]
+	else:
+		albumVars['albumTitle'] = os.getcwd().split('\\')[-2]
+		albumVars['title'] = os.getcwd().split('\\')[-2]
 	albumVars['level'] = '0'
 	
 	return albumVars
@@ -72,6 +77,10 @@ def transcribe_if_attrs():
 	"""
 	if DEBUG_TRANSCRIBE:
 		print("Transcribing if attributes")
+
+	# Write final .html file
+	if os.path.isfile('index.html'):
+		os.remove('index.html')
 
 	index_template = open('index.htt')
 	our_html = open('index.html', 'w+')
@@ -247,7 +256,8 @@ def evaluate_complex_boolean(conditional, albumVars):
 		try: 
 			value = albumVars[left_side]
 		except KeyError as e:
-			print('   KeyError:  %s' % str(e))
+			if DEBUG_EVALUATE:
+				print('   KeyError:  %s' % str(e))
 			return False
 		
 		if DEBUG_EVALUATE:
@@ -353,4 +363,7 @@ if __name__ == "__main__":
 	if os.path.isfile('index.html'):
 		os.remove('index.html')
 
+	our_html = open('index.html', 'w+')
+
+	print("Writing HTML")
 	our_html.write(soup.prettify())
