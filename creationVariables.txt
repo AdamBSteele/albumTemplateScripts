@@ -26,3 +26,23 @@ fixedShapeThumbs=false
 googleMaps=false
 
 showAlbumTitle=false
+
+// meta content attributes
+internalVersion="11.6.14"
+skinName=Minimal
+skinVersion="3.9.2"
+style=light.css
+currentDate="4/12/14"
+
+// ResPath
+resPath/common.css=res/common.css
+stylePath=res/styles.css
+
+// Image characteristics
+thumbHeight=89
+thumbWidth=124
+
+//  Aren't supposed to exist-----
+//  1. albumDesciption
+//	2. albumTags
+//	3. 

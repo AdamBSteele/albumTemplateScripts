@@ -8,8 +8,8 @@ import sys
 DEBUG_TRANSCRIBE = 0
 DEBUG_DICTIONARY = 0
 DEBUG_IF_STATEMENT = 1
-DEBUG_VAR_REPLACE = 0
-DEBUG_EVALUATE = 0
+DEBUG_VAR_REPLACE = 1
+DEBUG_EVALUATE = 1
 
 
 def grabAlbumVars():
@@ -359,11 +359,13 @@ if __name__ == "__main__":
 	# Search for template vars in tags
 	soup = replace_vars_in_tags(albumVars, soup)
 
+	our_html.close()
+
 	# Write final .html file
 	if os.path.isfile('index.html'):
 		os.remove('index.html')
 
-	our_html = open('index.html', 'w+')
+	fix_comments(our_html)
 
 	print("Writing HTML")
 	our_html.write(soup.prettify())
