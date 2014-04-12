@@ -165,7 +165,7 @@ def evaluate_if(tag, albumVars):
 		return True
 
 	# Test
-	'''if tag.get('test'):
+	if tag.get('test'):
 
 		# Test (Simple Boolean)
 		if tag['test'][0] == '$':
@@ -175,9 +175,9 @@ def evaluate_if(tag, albumVars):
 
 			try: 
 				value = albumVars[testVar]
-			except KeyError as e:'''
+			except KeyError as e:
 				#print('   KeyError:  %s' % str(e))
-'''				return False
+				return False
 
 			if value == 'true':
 				if DEBUG_IF_STATEMENT:
@@ -189,11 +189,11 @@ def evaluate_if(tag, albumVars):
 				return False
 
 			else:
-				if DEBUG_IF_STATEMENT:'''
+				if DEBUG_IF_STATEMENT:
 					#print("   Non boolean value: \"" + value + "\"") 
 
 		# Testing (Complex Boolean):
-'''		else:
+		else:
 			re_conditionals = re.compile('<%=.*%>')
 			#Get text within test
 			conditional_text = re_conditionals.match(tag['test'])
@@ -207,7 +207,7 @@ def evaluate_if(tag, albumVars):
 				else:
 					if DEBUG_IF_STATEMENT:
 						print("   False")
-					return False'''
+					return False
 
 
 def evaluate_complex_boolean(conditional, albumVars):
@@ -363,7 +363,7 @@ if __name__ == "__main__":
 	soup = handling_if_tags(albumVars, soup)
 
 	# Search for template vars in text
-	'''soup = replace_vars_in_text(albumVars, soup)
+	soup = replace_vars_in_text(albumVars, soup)
 
 	# Search for template vars in tags
 	soup = replace_vars_in_tags(albumVars, soup)
@@ -373,7 +373,7 @@ if __name__ == "__main__":
 		os.remove('index.html')
 
 <<<<<<< HEAD
-	our_html.write(soup.prettify())'''
+	our_html.write(soup.prettify())
 =======
 	our_html = open('index.html', 'w+')
 
