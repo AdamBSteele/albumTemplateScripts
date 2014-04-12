@@ -77,6 +77,8 @@ def transcribe_if_attrs():
 	our_html = open('index.html', 'w+')
 
 	# Use regex to search for conditional in each line
+	# Replaces quotations inside ("") with nothing --> ()
+	# ^^ Problem with beautiful soup
 	conditional_finder = re.compile('<%=.*%>')
 	for line in index_template:
 		conditional = conditional_finder.search(line)
@@ -84,7 +86,7 @@ def transcribe_if_attrs():
 			inner_statement = conditional.group(0)[3:-2]
 			if DEBUG_TRANSCRIBE:
 				print("conditional = " + conditional.group(0))
-				print("innter_statement = " + inner_statement)
+				print("inner_statement = " + inner_statement)
 			fixed_statement = inner_statement.replace('\"', '')
 			line = line.replace(inner_statement, fixed_statement)
 			if DEBUG_TRANSCRIBE:
@@ -111,13 +113,16 @@ def handling_if_tags(albumVars, soup):
 	if DEBUG_IF_STATEMENT:
 		print("\nSearching index.htt for if tags")
 
-	for tag in soup.find_all('ja:if'):
-		if evaluate_if(tag, albumVars):
-			tag.replaceWithChildren()
-		else:
-			# find else tags
-			tag.extract()
-			pass
+	for tag in soup.find_all('ja:if', text=True):
+		s = "<None></None>"
+		if type(tag) != None:
+			print(tag)
+			if evaluate_if(tag, albumVars):
+				tag.replaceWithChildren()
+			else:
+				# find else tags
+				tag.decompose()
+				pass
 	return soup
 
 def evaluate_if(tag, albumVars):
@@ -135,23 +140,23 @@ def evaluate_if(tag, albumVars):
 	"""
 
 	# Exists
-	if tag.get('exists'):
-		
+	if tag.get('exists'):	
 		if DEBUG_IF_STATEMENT:
 			print("Exists? " + tag['exists'])
 		try: 
 			value = albumVars[tag['exists']]
+			print("-----" + value + "----")
 		except KeyError as e:
 			if DEBUG_IF_STATEMENT:
 				print('   KeyError: %s' % str(e))
+				print('removing line')
+
 			return False
 
-		if DEBUG_IF_STATEMENT:
-			print('   Yes')
 		return True
 
 	# Test
-	if tag.get('test'):
+	'''if tag.get('test'):
 
 		# Test (Simple Boolean)
 		if tag['test'][0] == '$':
@@ -161,9 +166,9 @@ def evaluate_if(tag, albumVars):
 
 			try: 
 				value = albumVars[testVar]
-			except KeyError as e:
-				print('   KeyError:  %s' % str(e))
-				return False
+			except KeyError as e:'''
+				#print('   KeyError:  %s' % str(e))
+'''				return False
 
 			if value == 'true':
 				if DEBUG_IF_STATEMENT:
@@ -175,12 +180,13 @@ def evaluate_if(tag, albumVars):
 				return False
 
 			else:
-				if DEBUG_IF_STATEMENT:
-					print("   Non boolean value: \"" + value + "\"") 
+				if DEBUG_IF_STATEMENT:'''
+					#print("   Non boolean value: \"" + value + "\"") 
 
 		# Testing (Complex Boolean):
-		else:
+'''		else:
 			re_conditionals = re.compile('<%=.*%>')
+			#Get text within test
 			conditional_text = re_conditionals.match(tag['test'])
 			if conditional_text:
 				if DEBUG_IF_STATEMENT:
@@ -192,7 +198,7 @@ def evaluate_if(tag, albumVars):
 				else:
 					if DEBUG_IF_STATEMENT:
 						print("   False")
-					return False
+					return False'''
 
 
 def evaluate_complex_boolean(conditional, albumVars):
@@ -337,14 +343,17 @@ if __name__ == "__main__":
 		for x in albumVars.keys():
 			print(str(x) + ": " + str(albumVars[x]))
 
+	#removes parentheses
 	our_html = transcribe_if_attrs()
 
+	#parses the file
 	soup = BeautifulSoup(our_html)
 
+	#handles the if tags
 	soup = handling_if_tags(albumVars, soup)
 
 	# Search for template vars in text
-	soup = replace_vars_in_text(albumVars, soup)
+	'''soup = replace_vars_in_text(albumVars, soup)
 
 	# Search for template vars in tags
 	soup = replace_vars_in_tags(albumVars, soup)
@@ -353,4 +362,4 @@ if __name__ == "__main__":
 	if os.path.isfile('index.html'):
 		os.remove('index.html')
 
-	our_html.write(soup.prettify())
+	our_html.write(soup.prettify())'''
