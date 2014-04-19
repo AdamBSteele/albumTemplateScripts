@@ -25,6 +25,8 @@ def create_folder_structure(directory):
 	res_path = os.path.join(album_path, "res")
 	slides_path = os.path.join(album_path, "slides")
 	thumbs_path = os.path.join(album_path, "thumbs")
+	if os.path.isdir(slides_path) == False:
+		os.mkdir(slides_path)
 	if os.path.isdir(album_path) == True:
 		for f1 in os.listdir(album_path):
 			if f1.endswith(".html"):
