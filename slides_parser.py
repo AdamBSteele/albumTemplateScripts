@@ -62,8 +62,8 @@ if __name__ == "__main__":
 	type=str, nargs = '+')
 	args = parser.parse_args()
 	if args.directory != None:
-		if os.path.isdir(args.directory[0]) == True:
+		if os.path.isdir(args.directory[0]) == True and args.directory[1] != None:
 			image_retrieve(args.directory[0], args.directory[1])
 		else:
-			print ("You haven't entered any valid directory path")	
+			print ("You haven't entered any valid directory path (or) you haven't given the second argument (light or dark)")	
 			sys.exit()

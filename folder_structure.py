@@ -13,12 +13,6 @@ def copy_images(dir, s_path, th_path):
 		shutil.copy(im, th_path)
 
 
-'''def file_rename(file_path):
-	for files in os.listdir(file_path):
-		if files.startswith("light") and files.endswith(".css"):
-			os.rename(os.path.join(file_path, files), os.path.join(file_path, "styles.css"))'''
-
-
 def create_folder_structure(directory, selection):
 	album_path = os.path.join(directory, "album")
 	res_path = os.path.join(album_path, "res")
@@ -60,10 +54,11 @@ def create_folder_structure(directory, selection):
 			for f3 in os.listdir(current_dir_styles_path):
 				if selection == 'light' and (f3.startswith("light") and f3.endswith(".css")):
 					shutil.copy((os.path.join(current_dir_styles_path, f3)), res_path)
+				elif selection == 'dark' and (f3.startswith("dark") and f3.endswith(".css")):
+					shutil.copy((os.path.join(current_dir_styles_path, f3)), res_path)
 			for f4 in os.listdir(current_dir_styles_light_path):
 				if f4.endswith(".png"):
 					shutil.copy((os.path.join(current_dir_styles_light_path, f4)), res_path)
-		'''file_rename(res_path)'''
 		copy_images(directory, slides_path, thumbs_path)
 		modify_css_file(res_path, selection)
 
