@@ -8,11 +8,11 @@ from slides_maker import slides_image_urls
 import re
 import threading
 
-def image_retrieve(dir):
+def image_retrieve(dir, selection):
 	images = []
 	threads = []
 	album_name = (os.path.dirname(dir)).split('\\')[-1]
-	slides_path = create_folder_structure(dir)
+	slides_path = create_folder_structure(dir, selection)
 	for file in os.listdir(dir):
 		if file.endswith(".jpg"):
 			images.append(file)
@@ -59,10 +59,11 @@ def image_retrieve(dir):
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-d", "--directory", help="Creates html pages for the images in the given argument(directory)",
-	type=str)
+	type=str, nargs = '+')
 	args = parser.parse_args()
-	if args.directory != None and os.path.isdir(args.directory) == True:
-		image_retrieve(args.directory)
-	else:
-		print ("You haven't entered any valid directory path")	
-		sys.exit()
+	if args.directory != None:
+		if os.path.isdir(args.directory[0]) == True:
+			image_retrieve(args.directory[0], args.directory[1])
+		else:
+			print ("You haven't entered any valid directory path")	
+			sys.exit()

@@ -1,5 +1,6 @@
 import os
 import shutil
+from slides_css_file import modify_css_file
 
 def copy_images(dir, s_path, th_path):
 	image_list = []
@@ -12,35 +13,33 @@ def copy_images(dir, s_path, th_path):
 		shutil.copy(im, th_path)
 
 
-
-def file_rename(file_path):
+'''def file_rename(file_path):
 	for files in os.listdir(file_path):
 		if files.startswith("light") and files.endswith(".css"):
-			os.rename(os.path.join(file_path, files), os.path.join(file_path, "styles.css"))
+			os.rename(os.path.join(file_path, files), os.path.join(file_path, "styles.css"))'''
 
 
-
-def create_folder_structure(directory):
+def create_folder_structure(directory, selection):
 	album_path = os.path.join(directory, "album")
 	res_path = os.path.join(album_path, "res")
 	slides_path = os.path.join(album_path, "slides")
 	thumbs_path = os.path.join(album_path, "thumbs")
-	if os.path.isdir(slides_path) == False:
-		os.mkdir(slides_path)
 	if os.path.isdir(album_path) == True:
 		for f1 in os.listdir(album_path):
 			if f1.endswith(".html"):
 				os.remove(os.path.join(album_path, f1))
 		for f2 in os.listdir(slides_path):
-			if f2.endswith(".jpg") or f2.endswith(".html"):
-				os.remove(os.path.join(slides_path, f2))
+			if os.path.isdir(slides_path) == False:
+				os.mkdir(slides_path)
+			else:
+				if f2.endswith(".jpg") or f2.endswith(".html"):
+					os.remove(os.path.join(slides_path, f2))
 		for f3 in os.listdir(thumbs_path):
 			if f3.endswith(".jpg"):
 				os.remove(os.path.join(thumbs_path, f3))
 		copy_images(directory, slides_path, thumbs_path)
 	else:
 		current_dir = os.getcwd()
-		selection = "light"
 		current_dir_res_path = os.path.join(current_dir, "res")
 		current_dir_styles_path = os.path.join(current_dir, "styles")
 		current_dir_styles_light_path = os.path.join(current_dir_styles_path, "light")
@@ -64,6 +63,8 @@ def create_folder_structure(directory):
 			for f4 in os.listdir(current_dir_styles_light_path):
 				if f4.endswith(".png"):
 					shutil.copy((os.path.join(current_dir_styles_light_path, f4)), res_path)
-		file_rename(res_path)
+		'''file_rename(res_path)'''
 		copy_images(directory, slides_path, thumbs_path)
+		modify_css_file(res_path, selection)
+
 	return slides_path
