@@ -1,3 +1,5 @@
+import sys
+import argparse
 import shutil
 import os
 from bs4 import BeautifulSoup
@@ -6,13 +8,12 @@ from slides_maker import slides_image_urls
 import re
 import threading
 
-def image_retrieve():
+def image_retrieve(dir):
 	images = []
 	threads = []
-	folder = "C:\\Users\\Public\\Pictures\\Sample Pictures\\"
-	album_name = (os.path.dirname(folder)).split('\\')[-1]
-	slides_path = create_folder_structure(folder)
-	for file in os.listdir(folder):
+	album_name = (os.path.dirname(dir)).split('\\')[-1]
+	slides_path = create_folder_structure(dir)
+	for file in os.listdir(dir):
 		if file.endswith(".jpg"):
 			images.append(file)
 
@@ -50,9 +51,18 @@ def image_retrieve():
 		new_thread = slides_image_urls(soup, previousimage, im, nextimage, album_name, slides_path)
 		new_thread.start()
 		threads.append(new_thread)
+
 	for t in threads:
 		t.join()
 		
 
 if __name__ == "__main__":
-	image_retrieve()
+	parser = argparse.ArgumentParser()
+	parser.add_argument("-d", "--directory", help="Creates html pages for the images in the given argument(directory)",
+	type=str)
+	args = parser.parse_args()
+	if args.directory != None and os.path.isdir(args.directory) == True:
+		image_retrieve(args.directory)
+	else:
+		print ("You haven't entered any valid directory path")	
+		sys.exit()
